@@ -11,6 +11,15 @@
         <EntityTypeShape EntityType="velikigospodinModel.SoftwareProduct" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="velikigospodinModel.FK_Order_OrderStatus" ManuallyRouted="false" />
         <AssociationConnector Association="velikigospodinModel.FK_Order_OrderType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="velikigospodinModel.AspNetRole" Width="1.5" PointX="1.5" PointY="9.5" />
+        <EntityTypeShape EntityType="velikigospodinModel.AspNetUserClaim" Width="1.5" PointX="3" PointY="12.125" />
+        <EntityTypeShape EntityType="velikigospodinModel.AspNetUserLogin" Width="1.5" PointX="3" PointY="14.875" />
+        <EntityTypeShape EntityType="velikigospodinModel.AspNetUser" Width="1.5" PointX="0.75" PointY="2" />
+        <AssociationConnector Association="velikigospodinModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="velikigospodinModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="velikigospodinModel.FK_Order_UserAccount" />
+        <AssociationConnector Association="velikigospodinModel.FK_SoftwareProduct_UserAccount" />
+        <AssociationConnector Association="velikigospodinModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

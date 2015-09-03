@@ -52,3 +52,4 @@ D:\Projects\IEP\IEPWebService\iepDucan\iepDucan\bin\Microsoft.Owin.Security.Twit
 D:\Projects\IEP\IEPWebService\iepDucan\iepDucan\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\Projects\IEP\IEPWebService\iepDucan\iepDucan\obj\Debug\iepDucan.dll
 D:\Projects\IEP\IEPWebService\iepDucan\iepDucan\obj\Debug\iepDucan.pdb
+D:\Projects\IEP\IEPWebService\iepDucan\iepDucan\obj\Debug\iepDucan.csprojResolveAssemblyReference.cache

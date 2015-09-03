@@ -29,5 +29,9 @@ namespace iepDucan.Models
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<OrderType> OrderTypes { get; set; }
         public virtual DbSet<SoftwareProduct> SoftwareProducts { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

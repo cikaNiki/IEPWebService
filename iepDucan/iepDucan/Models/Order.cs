@@ -23,5 +23,6 @@ namespace iepDucan.Models
     
         public virtual OrderStatu OrderStatu { get; set; }
         public virtual OrderType OrderType { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

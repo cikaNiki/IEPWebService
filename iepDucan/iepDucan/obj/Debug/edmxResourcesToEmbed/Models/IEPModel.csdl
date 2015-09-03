@@ -12,6 +12,7 @@
     <NavigationProperty Name="OrderStatu" Relationship="Self.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
     <NavigationProperty Name="OrderType" Relationship="Self.FK_Order_OrderType" FromRole="Order" ToRole="OrderType" />
     <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="AspNetUser" Relationship="velikigospodinModel.FK_Order_UserAccount" FromRole="Order" ToRole="AspNetUser" />
   </EntityType>
   <EntityType Name="OrderStatu">
     <Key>
@@ -42,6 +43,7 @@
     <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="IsDeleted" Type="Int32" />
     <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="velikigospodinModel.FK_SoftwareProduct_UserAccount" FromRole="SoftwareProduct" ToRole="AspNetUser" />
   </EntityType>
   <Association Name="FK_Order_OrderStatus">
     <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="0..1" />
@@ -80,5 +82,138 @@
       <End Role="OrderType" EntitySet="OrderTypes" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
+    <EntitySet Name="AspNetRoles" EntityType="velikigospodinModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="velikigospodinModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="velikigospodinModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="velikigospodinModel.AspNetUser" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="velikigospodinModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="velikigospodinModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_UserAccount" Association="velikigospodinModel.FK_Order_UserAccount">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SoftwareProduct_UserAccount" Association="velikigospodinModel.FK_SoftwareProduct_UserAccount">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="SoftwareProduct" EntitySet="SoftwareProducts" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="velikigospodinModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="velikigospodinModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="velikigospodinModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="velikigospodinModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="velikigospodinModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="velikigospodinModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="Orders" Relationship="velikigospodinModel.FK_Order_UserAccount" FromRole="AspNetUser" ToRole="Order" />
+    <NavigationProperty Name="SoftwareProducts" Relationship="velikigospodinModel.FK_SoftwareProduct_UserAccount" FromRole="AspNetUser" ToRole="SoftwareProduct" />
+    <NavigationProperty Name="AspNetRoles" Relationship="velikigospodinModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="velikigospodinModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="velikigospodinModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="velikigospodinModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="velikigospodinModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_UserAccount">
+    <End Type="velikigospodinModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="velikigospodinModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SoftwareProduct_UserAccount">
+    <End Type="velikigospodinModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="velikigospodinModel.SoftwareProduct" Role="SoftwareProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SoftwareProduct">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="velikigospodinModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="velikigospodinModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
 </Schema>

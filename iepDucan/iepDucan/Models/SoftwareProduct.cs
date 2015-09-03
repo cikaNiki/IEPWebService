@@ -23,5 +23,7 @@ namespace iepDucan.Models
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> IsDeleted { get; set; }
         public string CreatedBy { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
